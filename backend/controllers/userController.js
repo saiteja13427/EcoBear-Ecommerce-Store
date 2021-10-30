@@ -22,25 +22,6 @@ export const login = asyncHandler(async (req, res) => {
   }
 });
 
-//@desc     Get user profile
-//@route    GET /api/users/profile
-//@access   private
-export const getProfile = asyncHandler(async (req, res) => {
-  const id = req.user._id;
-  const user = await User.findById(id);
-  if (user) {
-    res.json({
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    });
-  } else {
-    res.status(404);
-    throw new Error("User not found");
-  }
-});
-
 //@desc     Register a user
 //@route    POST /api/users/
 //@access   public
@@ -65,5 +46,55 @@ export const register = asyncHandler(async (req, res) => {
   } else {
     res.status(400);
     throw new Error("Invalid user data");
+  }
+});
+
+//@desc     Get user profile
+//@route    GET /api/users/profile
+//@access   private
+export const getProfile = asyncHandler(async (req, res) => {
+  const id = req.user._id;
+  const user = await User.findById(id);
+  if (user) {
+    res.json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+//@desc     Update user profile
+//@route    PUT /api/users/profile
+//@access   private
+export const updateProfile = asyncHandler(async (req, res) => {
+  const id = req.user._id;
+  const user = await User.findById(id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.currentPassword && req.body.newPassword) {
+      if (await user.checkPassword(req.body.currentPassword)) {
+        user.password = req.body.newPassword;
+      } else {
+        res.status(400);
+        throw new Error("Password don't match");
+      }
+    }
+    const updatedUser = await user.save();
+    res.json({
+      id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
   }
 });

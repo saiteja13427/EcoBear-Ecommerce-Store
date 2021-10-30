@@ -89,20 +89,22 @@ const CartScreen = ({ match, location, history }) => {
             <ListGroup.Item>
               <h2>
                 SubTotal (
-                {cartItems.map((x) => x.quantity).reduce((a, b) => a + b)})
-                Items
+                {cartItems.length &&
+                  cartItems.map((x) => x.quantity).reduce((a, b) => a + b)}
+                ) Items
               </h2>
             </ListGroup.Item>
             <ListGroup.Item>
               Price: ₹
-              {cartItems
-                .reduce((a, items) => a + items.price * items.quantity, 0)
-                .toFixed(2)}
+              {cartItems.length &&
+                cartItems
+                  .reduce((a, items) => a + items.price * items.quantity, 0)
+                  .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item className="d-grid gap-2">
               <Button
                 variant="success"
-                disabled={cartItems.length == 0}
+                disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >
                 Checkout
