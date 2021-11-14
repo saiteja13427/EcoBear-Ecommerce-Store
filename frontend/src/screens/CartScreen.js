@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Message from "../components/Message";
-import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
 import {
   Row,

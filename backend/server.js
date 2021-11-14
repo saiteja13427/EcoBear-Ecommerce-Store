@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import productRouter from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
 
 //Need to be configured before app
@@ -18,6 +19,11 @@ app.use(express.json());
 
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
+app.use("/api/orders", orderRouter);
+
+app.use("/api/config/paypal", (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
 
 //If the request doesn't match any uri here, then it goes to notFound and gets 404 not found message passed to errorHandler
 app.use(notFound);
