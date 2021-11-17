@@ -44,6 +44,8 @@ npm run dev
 npm start
 ```
 
+For any assistance or doubts in the project, feel free to contact me.
+
 ---
 
 **Version**: 1.0.0
