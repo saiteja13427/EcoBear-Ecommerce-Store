@@ -6,6 +6,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getUserProfile, updateUserProfile } from "../actions/userActions";
 import { myListOrders } from "../actions/orderActions";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = useState("");
@@ -32,15 +33,17 @@ const ProfileScreen = ({ history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      dispatch(myListOrders());
-      if (!user) {
+      if (!user || !user.name || success) {
+        setMessage("");
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserProfile("profile"));
+        dispatch(myListOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [dispatch, history, user, userInfo]);
+  }, [dispatch, history, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -68,7 +71,7 @@ const ProfileScreen = ({ history }) => {
         {updateError && <Message variant="danger">{updateError}</Message>}
         {message && <Message variant="danger">{message}</Message>}
         {success && <Message variant="success">Profile Updated</Message>}
-        {success && setMessage("")}
+        {/* Calling state setters like this lead to too many re-renders, very dangerous{success && setMessage("")} */}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3">
