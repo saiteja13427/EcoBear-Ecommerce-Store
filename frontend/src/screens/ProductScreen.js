@@ -48,7 +48,7 @@ const ProductScreen = ({ history, match }) => {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match.params.id, successProductReview, errorProductReview]);
+  }, [dispatch, match.params.id, successProductReview]);
 
   const submitHandler = (e) => {
     e.preventDefault();
