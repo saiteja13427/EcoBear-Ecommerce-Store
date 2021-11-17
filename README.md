@@ -44,6 +44,10 @@ npm run dev
 npm start
 ```
 
+## Deployed Version
+
+Check it out here: https://ecobearapp.herokuapp.com
+
 For any assistance or doubts in the project, feel free to contact me.
 
 ---

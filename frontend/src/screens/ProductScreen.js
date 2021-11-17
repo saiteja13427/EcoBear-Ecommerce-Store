@@ -142,12 +142,6 @@ const ProductScreen = ({ history, match }) => {
                       </Button>
                     </Col>
                   </Row>
-                  <Button
-                    variant="success"
-                    disabled={product.countInStock === 0}
-                  >
-                    Buy Now
-                  </Button>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
