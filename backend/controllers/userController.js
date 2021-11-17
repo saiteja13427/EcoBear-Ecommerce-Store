@@ -8,8 +8,6 @@ import generateToken from "../utils/generateToken.js";
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  console.log(user);
-  console.log(await user.checkPassword(password));
   if (user && (await user.checkPassword(password))) {
     res.json({
       id: user._id,

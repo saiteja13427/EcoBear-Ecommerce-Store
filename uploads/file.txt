@@ -1,0 +1,1 @@
+Just a sample file so that it gets added to the repository even if there are no images in there.

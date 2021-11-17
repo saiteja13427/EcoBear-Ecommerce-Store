@@ -32,11 +32,18 @@ const PlaceOrderScreen = ({ history }) => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, order, error, success } = orderCreate;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
+    if (!userInfo) {
+      history.push("/login");
+    }
+
     if (success) {
       history.push(`/order/${order._id}`);
     }
-  }, [success, history]);
+  }, [success, history, userInfo]);
 
   const placeOrderHandler = () => {
     dispatch(

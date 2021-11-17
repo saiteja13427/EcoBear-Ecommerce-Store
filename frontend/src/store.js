@@ -6,6 +6,9 @@ import {
   productDetailsReducer,
   productDeleteReducer,
   productCreateReducer,
+  producUpdateReducer,
+  productReviewCreateReducer,
+  productTopRatedReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import {
@@ -22,7 +25,9 @@ import {
   orderCreateReducer,
   orderDetailsReducer,
   orderPayReducer,
+  ordersListReducer,
   ordersMyListReducer,
+  orderDeliverReducer,
 } from "./reducers/orderReducers";
 
 //All the list of reducers which hold the state and pass it to components
@@ -31,6 +36,9 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
+  productUpdate: producUpdateReducer,
+  productReviewCreate: productReviewCreateReducer,
+  productTopRated: productTopRatedReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -43,6 +51,8 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderMyList: ordersMyListReducer,
+  orderList: ordersListReducer,
+  orderDeliver: orderDeliverReducer,
 });
 
 //To get the cart items from localstorage and add them to the initial state of cart screen
